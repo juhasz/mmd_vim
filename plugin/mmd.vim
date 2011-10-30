@@ -1,4 +1,5 @@
 let g:mmdTmpDir = '/tmp'
+let g:mmdOpenCommand = 'open'
 
 function! MmdCompile(...)
   if exists('a:1') && a:1 != g:mmdTmpDir
@@ -31,7 +32,7 @@ function! MmdOpen(...)
   if exists('a:2') && a:2 == 'source'
     exec 'silent vne' . l:path
   else
-    exec 'silent !open ' . l:path
+    exec 'silent !' . g:mmdOpenCommand . ' ' . l:path
   endif
 endfunction
 
