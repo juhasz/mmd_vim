@@ -41,3 +41,17 @@ let s:rmString = 'silent !rm ' . g:mmdTmpDir . '/vimmmd_*'
 autocmd VimLeave * exec s:rmString
 
 autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} nnoremap <Leader>mmo :call MmdOpen()<CR>
+
+function! MmdIncreaseHeader()
+  silent +1g/^==\+$/norm ddk
+  silent +1g/^--\+$/norm ddkyypVr=k
+  silent .g/^### /norm 0df yypVr-k
+  silent .g/^##\? /norm 0x2P
+endfunction
+
+function! MmdDecreaseHeader()
+  silent .g/^#/norm x
+  silent .g/^ /norm x
+  silent +1g/^--\+$/norm ddkI### 
+  silent +1g/^==\+$/norm ddkyypVr-k
+endfunction
