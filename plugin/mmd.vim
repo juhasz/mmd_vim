@@ -38,9 +38,16 @@ endfunction
 
 " delete tmp directory on exit
 let s:rmString = 'silent !rm ' . g:mmdTmpDir . '/vimmmd_*'
-autocmd VimLeave * exec s:rmString
 
-autocmd BufNewFile,BufRead *.{md,mkd,mkdn,mark*} nnoremap <Leader>mmo :call MmdOpen()<CR>
+if has("autocmd")
+  autocmd VimLeave * exec s:rmString
+
+  augroup text
+    autocmd BufRead,BufNewFile *.{mark*,md,mkd,mkdn} set filetype=markdown
+    autocmd FileType markdown nnoremap <Leader>mmo :call MmdOpen()<CR>
+  augroup END
+endif
+
 
 function! MmdIncreaseHeader()
   silent +1g/^==\+$/norm ddk
