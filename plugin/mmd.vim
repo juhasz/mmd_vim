@@ -1,5 +1,10 @@
-let g:mmdTmpDir = '/tmp'
-let g:mmdOpenCommand = 'open'
+if !exists('g:mmdTmpDir')
+  let g:mmdTmpDir = '/tmp'
+endif
+
+if !exists('g:mmdOpenCommand')
+  let g:mmdOpenCommand = 'open'
+endif
 
 function! MmdCompile(...)
   if exists('a:1') && a:1 != g:mmdTmpDir
